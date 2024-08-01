@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "transcript-timestamper-devenv"
+version = "0.1.0"
+description = "Add timestampts to a transcript based on the audio file"
+authors = [
+    "Yi-Ting Yu <dududragoncat@gmail.com>",
+    "Pin-Yen Lin <100340164+Lin-pinyen@users.noreply.github.com>",
+    "Yueh-Shun Li <shamrocklee@posteo.net>",
+]
+license = "MIT"
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+ruff = "^0.5.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
