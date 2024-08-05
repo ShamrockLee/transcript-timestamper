@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "transcript-timestamper"
+version = "0.1.0"
+description = "Add timestampts to a transcript based on the audio file"
+authors = [
+    "Yi-Ting Yu <dududragoncat@gmail.com>",
+    "Pin-Yen Lin <100340164+Lin-pinyen@users.noreply.github.com>",
+    "Yueh-Shun Li <shamrocklee@posteo.net>",
+]
+license = "MIT"
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.9" # For tensorflow and whisper 
+numpy = ">=1"
+whisper = "^1"
+
+
+[tool.poetry.group.dev.dependencies]
+notebook = "^7"
+
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
