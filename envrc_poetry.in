@@ -1,0 +1,3 @@
+set -eu -o pipefail
+source ./scripts/direnv-poetry-lib.sh
+layout poetry
