@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "transcript-timestamper-devenv"
+name = "transcript-timestamper-infra"
 version = "0.1.0"
-description = "Add timestampts to a transcript based on the audio file"
+description = "Transcript Timestamper infrastructure and project configuration."
 authors = [
     "Yi-Ting Yu <dududragoncat@gmail.com>",
     "Pin-Yen Lin <100340164+Lin-pinyen@users.noreply.github.com>",
