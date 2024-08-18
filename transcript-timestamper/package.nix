@@ -5,6 +5,7 @@
   # Native build inputs
   poetry-core,
   # Build inputs
+  dragonmapper,
   numpy,
   pandas,
   whisper,
@@ -32,6 +33,7 @@ in
     build-system = [poetry-core];
 
     dependencies = [
+      dragonmapper
       numpy
       pandas
       whisper

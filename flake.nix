@@ -8,6 +8,9 @@
   inputs.devshell.inputs.nixpkgs.follows = "nixpkgs";
   # Build ruff of custom version with dream2nix
   inputs.dream2nix.url = "github:nix-community/dream2nix";
+  # The branch name contains an unfortunate typo.
+  inputs.nixpkgs-dragonmapper.url = "github:ShamrockLee/nixpkgs/dragonmappr";
+  inputs.nixpkgs-pym3u8downloader.url = "github:ShamrockLee/nixpkgs/pym3u8downloader";
   inputs.poetry2nix.url = "github:nix-community/poetry2nix";
   inputs.poetry2nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.ruff-source.url = "github:astral-sh/ruff/0.5.5";

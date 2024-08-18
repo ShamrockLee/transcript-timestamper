@@ -189,6 +189,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-dragonmapper": {
+      "locked": {
+        "lastModified": 1723957534,
+        "narHash": "sha256-dVdFIShl/atIB84bBEs8OAR/yeJezVrMLwfTeBTqJlU=",
+        "owner": "ShamrockLee",
+        "repo": "nixpkgs",
+        "rev": "8773d6657f9c5cccab00c050831344e544d5c4c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ShamrockLee",
+        "ref": "dragonmappr",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1722555339,
@@ -199,6 +215,22 @@
       "original": {
         "type": "tarball",
         "url": "https://github.com/NixOS/nixpkgs/archive/a5d394176e64ab29c852d03346c1fc9b0b7d33eb.tar.gz"
+      }
+    },
+    "nixpkgs-pym3u8downloader": {
+      "locked": {
+        "lastModified": 1723932636,
+        "narHash": "sha256-bPdThQ77yzsqE10NRTNVTFs+Kjv4AAuXoLXPrK3rCuU=",
+        "owner": "ShamrockLee",
+        "repo": "nixpkgs",
+        "rev": "4826f444d46bee945743b12fafc636f534b7a2ee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ShamrockLee",
+        "ref": "pym3u8downloader",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs_2": {
@@ -288,6 +320,8 @@
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-dragonmapper": "nixpkgs-dragonmapper",
+        "nixpkgs-pym3u8downloader": "nixpkgs-pym3u8downloader",
         "poetry2nix": "poetry2nix",
         "ruff-source": "ruff-source"
       }
