@@ -1,0 +1,59 @@
+name: Test feature branches
+
+on:
+  pull_request:
+
+jobs:
+
+  nix-flake-check-eval:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-nix
+        # Check evaluation only, as
+        # not all developers here uses Nix, and
+        # not all Python dependencies are packaged yet.
+        # We check the full `nix flake check`
+        # after the changes are merged into the main branch.
+      - name: Check Nix Flake Evaluation
+        run: nix flake check --no-build --keep-going
+
+  check-format:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-nix
+      - name: Check if the codebase is formatted
+        run: nix develop -c treefmt --ci
+
+  test-with-poetry:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{matrix.python-version}}
+      - uses: abatilo/actions-poetry@v2
+      - name: "Run poetry install for infra"
+        uses: ./.github/actions/poetry-install
+      - name: "Run poetry install for transcript-timestamper"
+        uses: ./.github/actions/poetry-install
+        with:
+          workdir: transcript-timestamper
+      - name: "Run poetry install for transcript-timestamper-ui"
+        uses: ./.github/actions/poetry-install
+        with:
+          workdir: transcript-timestamper-ui
+      - name: "Run poetry install for twly-meeting-fetchers"
+        uses: ./.github/actions/poetry-install
+        with:
+          workdir: twly-meeting-fetchers

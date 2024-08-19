@@ -1,0 +1,24 @@
+# TODO(@ShamrockLee): implement caching
+
+name: Poetry Install Action
+
+description: "Run the \"poetry install\" command in the given directory."
+
+inputs:
+  workdir:
+    description: "Directory where pyproject.toml and poetry.lock resides"
+    default: "."
+
+  requests-timeout:
+    description: |
+      The timeout of network requests.
+      Pip has a default timeout of 15 seconds, makeing large packages prone to timeout.
+    default: 300
+
+runs:
+  using: composite
+  steps:
+    - run: poetry install --directory="${{inputs.workdir}}"
+      shell: bash
+      env:
+        POETRY_REQUESTS_TIMEOUT: "${{inputs.requests-timeout}}"
