@@ -4,6 +4,7 @@
   buildPythonPackage,
   # Native build inputs
   poetry-core,
+  pytestCheckHook,
   # Build inputs
   dragonmapper,
   numpy,
@@ -37,6 +38,13 @@ in
       numpy
       pandas
       whisper
+    ];
+
+    # There is currently no pytest tests.
+    doCheck = false;
+
+    nativeCheckInputs = [
+      pytestCheckHook
     ];
 
     pythonImportsCheck = ["transcript_timestamper"];

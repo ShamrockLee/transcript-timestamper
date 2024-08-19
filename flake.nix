@@ -59,12 +59,21 @@
             python310
             python311
             python312
-            pypy3
-            pypy39
-            pypy310
             ;
         };
+        # Python packages with all its modules in the Nixpkgs binary cache
+        binaryCachedPythons =
+          lib.filterAttrs (
+            pythonName: python:
+              pkgs."${pythonName}Packages".recurseForDerivations or false
+          )
+          pythons;
       in {
+        checks = lib.concatMapAttrs (pythonName: python: {
+          "transcript-timestamper_${pythonName}" = self'.packages."${pythonName}-overridden-transcript-timestamper".pkgs.transcript-timestamper;
+          "transcript-timestamper-ui_${pythonName}" = self'.packages."${pythonName}-overridden-transcript-timestamper-ui".pkgs.transcript-timestamper-ui;
+        })
+        binaryCachedPythons;
         devshells =
           {
             infra = {
