@@ -79,6 +79,7 @@
           {
             infra = {
               packages = with self'.packages; [
+                act
                 alejandra
                 ruff
                 poetry
@@ -155,6 +156,7 @@
           {
             inherit
               (pkgs)
+              act
               poetry
               shellcheck
               shfmt
