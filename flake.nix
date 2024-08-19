@@ -81,6 +81,7 @@
                 alejandra
                 ruff
                 poetry
+                shellcheck
                 shfmt
                 treefmt
               ];
@@ -154,6 +155,7 @@
             inherit
               (pkgs)
               poetry
+              shellcheck
               shfmt
               treefmt
               ;
