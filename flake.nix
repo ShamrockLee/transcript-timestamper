@@ -69,11 +69,12 @@
           )
           pythons;
       in {
-        checks = lib.concatMapAttrs (pythonName: python: {
-          "transcript-timestamper_${pythonName}" = self'.packages."${pythonName}-overridden-transcript-timestamper".pkgs.transcript-timestamper;
-          "transcript-timestamper-ui_${pythonName}" = self'.packages."${pythonName}-overridden-transcript-timestamper-ui".pkgs.transcript-timestamper-ui;
-        })
-        binaryCachedPythons;
+        checks =
+          lib.concatMapAttrs (pythonName: python: {
+            "transcript-timestamper_${pythonName}" = self'.packages."${pythonName}-overridden-transcript-timestamper".pkgs.transcript-timestamper;
+            "transcript-timestamper-ui_${pythonName}" = self'.packages."${pythonName}-overridden-transcript-timestamper-ui".pkgs.transcript-timestamper-ui;
+          })
+          binaryCachedPythons;
         devshells =
           {
             infra = {
