@@ -1,0 +1,33 @@
+# One CLI to format the code tree - https://github.com/numtide/treefmt
+
+[formatter.alejandra]
+command = "alejandra"
+options = []
+includes = [ "*.nix" ]
+excludes = []
+
+[formatter.ruff-check]
+command = "ruff"
+options = [ "check" ]
+includes = [ "*.py" ]
+excludes = []
+priority = 1
+
+[formatter.ruff-format]
+command = "ruff"
+options = [ "format" ]
+includes = [ "*.py" ]
+excludes = []
+priority = 0
+
+[formatter.shellcheck]
+command = "shellcheck"
+options = [ "--external-sources" ]
+includes = [ "*.sh" ]
+priority = 1
+
+[formatter.shfmt]
+command = "shfmt"
+options = [ "--write" ]
+includes = [ "*.sh" ]
+priority = 0
