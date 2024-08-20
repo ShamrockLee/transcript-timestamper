@@ -182,9 +182,9 @@
                     installShellFiles
                     rust-jemalloc-sys
                     ;
-                  CoreService =
+                  CoreServices =
                     if nixpkgs.stdenv.isDarwin
-                    then nixpkgs.darwin.apple_sdk.frameworks.CoreService
+                    then nixpkgs.darwin.apple_sdk.frameworks.CoreServices
                     else null;
                   # For phases
                   ruff-nixpkgs = nixpkgs.ruff;
@@ -200,7 +200,7 @@
                   ];
                   buildInputs = with config.deps; [
                     rust-jemalloc-sys
-                    CoreService
+                    CoreServices
                   ];
                   inherit
                     (config.deps.ruff-nixpkgs)
