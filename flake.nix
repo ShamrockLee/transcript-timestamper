@@ -11,6 +11,7 @@
   # The branch name contains an unfortunate typo.
   inputs.nixpkgs-dragonmapper.url = "github:ShamrockLee/nixpkgs/dragonmappr";
   inputs.nixpkgs-pym3u8downloader.url = "github:ShamrockLee/nixpkgs/pym3u8downloader";
+  inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.poetry2nix.url = "github:nix-community/poetry2nix";
   inputs.poetry2nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.ruff-source.url = "github:astral-sh/ruff/0.5.5";
@@ -38,6 +39,7 @@
         system,
         ...
       }: let
+        pkgsUnstable = inputs'.nixpkgs-unstable.legacyPackages;
         poetry2nix = inputs.poetry2nix.lib.mkPoetry2Nix {inherit pkgs;};
         callDream2NixModule = module:
           inputs.dream2nix.lib.evalModules {
@@ -160,6 +162,9 @@
               poetry
               shellcheck
               shfmt
+              ;
+            inherit
+              (pkgsUnstable)
               treefmt
               ;
             alejandra =
