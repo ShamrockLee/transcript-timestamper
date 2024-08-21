@@ -1,5 +1,5 @@
 final: prev: let
-  this-flake = import ../. { inherit (final.stdenv.hostPlatform) system; };
+  this-flake = import ../. {inherit (final.stdenv.hostPlatform) system;};
   inherit
     (this-flake.inputs)
     nixpkgs-dragonmapper

@@ -1,0 +1,19 @@
+name: Install Nix pinned
+
+description: Install a pinned version of Nix.
+
+inputs:
+  save-gha-cache:
+    description: "Whether to save to the GitHub Actions cache."
+    default: false
+
+runs:
+  using: composite
+  steps:
+    - uses: cachix/install-nix-action@v27
+      with:
+        # Workaround https://github.com/nix-community/dream2nix/issues/1037
+        install_url: "https://releases.nixos.org/nix/nix-2.18.5/install"
+    - uses: DeterminateSystems/magic-nix-cache-action@main
+      with:
+        use-gha-cache: ${{inputs.save-gha-cache}}
