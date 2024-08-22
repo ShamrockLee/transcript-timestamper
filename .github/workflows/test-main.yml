@@ -5,8 +5,25 @@ on:
     branches: [main]
 
 jobs:
+  push-ruff-pinned:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-nix
+        with:
+          push-to-cachix: true
+          paths-to-push: result
+          # This is the repository secret, set by @ShamrockLee
+          cachix-auth-token: ${{secrets.CACHIX_AUTH_TOKEN_RW}}
+      - run: nix build .#ruff_d2n
 
   nix-flake-check:
+    if: ${{ always() }}
+    needs: push-ruff-pinned
     strategy:
       fail-fast: false
       matrix:
@@ -19,6 +36,8 @@ jobs:
         run: nix flake check --keep-going
 
   test-nix-infra-env:
+    if: ${{ always() }}
+    needs: push-ruff-pinned
     strategy:
       fail-fast: false
       matrix:

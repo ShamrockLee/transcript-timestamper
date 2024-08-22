@@ -2,6 +2,24 @@ name: Install Nix pinned
 
 description: Install a pinned version of Nix.
 
+inputs:
+  use-cachix:
+    description: Whether to use the Cachix-backed Nix binary cache
+    default: true
+
+  push-to-cachix:
+    description: Whether to push/write to the Cachix cache
+    default: false
+
+  paths-to-push:
+    description: |
+      Whitespace separated paths (result symlinks) to push to the Cachix cache.
+      Leave empty to push every build result.
+
+  cachix-auth-token:
+    description: |
+      The secret CACHIX_AUTH_TOKEN for writing/pushing to the cache.
+      The cache transcript-timestamper is public, so we don't need authentication to read from it.
 runs:
   using: composite
   steps:
@@ -10,3 +28,13 @@ runs:
         # Workaround https://github.com/nix-community/dream2nix/issues/1037
         install_url: "https://releases.nixos.org/nix/nix-2.18.5/install"
     - uses: DeterminateSystems/magic-nix-cache-action@main
+    - uses: cachix/cachix-action@v15
+      if: ${{inputs.use-cachix}}
+      with:
+        # Cache transcript-timestamper is a public Nix binary cache
+        # created by @ShamrockLee, provided by Cachix
+        # https://app.cachix.org/cache/transcript-timestamper
+        name: transcript-timestamper
+        skipPush: ${{inputs.push-to-cachix != true}}
+        pathsToPush: ${{inputs.paths-to-push}}
+        authToken: '${{inputs.cachix-auth-token}}'
