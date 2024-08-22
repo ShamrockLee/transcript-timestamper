@@ -15,9 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/install-nix
-        with:
-          save-gha-cache: true
-      - name: Add the relevant ruff build to the GitHub Actions Cache.
+      - name: Test the infra environment used by other GitHub workflows.
         run: nix develop -c echo infra development environment success
       - name: Test the Nix flake
         run: nix flake check --keep-going
