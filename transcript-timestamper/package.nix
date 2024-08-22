@@ -9,7 +9,6 @@
   dragonmapper,
   numpy,
   pandas,
-  whisper,
 }: let
   pyprojectTOMLAttrs = lib.importTOML ./pyproject.toml;
   # TODO(@ShamrockLee):
@@ -37,7 +36,6 @@ in
       dragonmapper
       numpy
       pandas
-      whisper
     ];
 
     # There is currently no pytest tests.

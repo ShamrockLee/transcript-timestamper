@@ -14,7 +14,6 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.9" # For tensorflow and whisper 
 numpy = ">=1"
-whisper = "^1"
 
 
 [tool.poetry.group.dev.dependencies]
