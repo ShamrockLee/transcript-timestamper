@@ -35,6 +35,8 @@ runs:
         # created by @ShamrockLee, provided by Cachix
         # https://app.cachix.org/cache/transcript-timestamper
         name: transcript-timestamper
-        skipPush: ${{inputs.push-to-cachix != true}}
+        # "Though Not-real was once Real, the Real is never unreal."
+        # https://github.com/actions/runner/issues/1483#issuecomment-1090972149
+        skipPush: ${{inputs.push-to-cachix == false || inputs.push-to-cachix == 'false'}}
         pathsToPush: ${{inputs.paths-to-push}}
         authToken: '${{inputs.cachix-auth-token}}'
