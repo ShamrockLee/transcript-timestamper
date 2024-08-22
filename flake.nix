@@ -174,61 +174,15 @@
                 inherit system;
               })
               .alejandra;
-            ruff = callDream2NixModule (
-              {
-                config,
-                lib,
-                dream2nix,
-                ...
-              }: {
-                imports = [
-                  dream2nix.modules.dream2nix.rust-cargo-lock
-                  dream2nix.modules.dream2nix.buildRustPackage
-                ];
-
-                deps = {nixpkgs, ...}: {
-                  inherit
-                    (nixpkgs)
-                    installShellFiles
-                    rust-jemalloc-sys
-                    ;
-                  CoreServices =
-                    if nixpkgs.stdenv.isDarwin
-                    then nixpkgs.darwin.apple_sdk.frameworks.CoreServices
-                    else null;
-                  # For phases
-                  ruff-nixpkgs = nixpkgs.ruff;
-                };
-
-                name = lib.mkForce "ruff";
-                version = lib.mkForce "0.5.5";
-
-                mkDerivation = {
-                  src = inputs.ruff-source.outPath;
-                  nativeBuildInputs = with config.deps; [
-                    installShellFiles
-                  ];
-                  buildInputs = with config.deps; [
-                    rust-jemalloc-sys
-                    CoreServices
-                  ];
-                  inherit
-                    (config.deps.ruff-nixpkgs)
-                    postInstall
-                    ;
-                };
-
-                public = {
-                  meta = {
-                    inherit
-                      (config.deps.ruff-nixpkgs.meta)
-                      description
-                      mainProgram
-                      ;
-                  };
-                };
-              }
-            );
+            # Don't rebuild ruff if we have the same version from Nixpkgs
+            ruff = let
+              inherit (self'.packages) ruff_d2n ruff_pkgs;
+            in
+              if ruff_pkgs.version == ruff_d2n.version
+              then ruff_pkgs
+              else ruff_d2n;
+            ruff_pkgs = pkgs.ruff;
+            ruff_d2n = callDream2NixModule ./nix-deps/d2n_ruff.nix;
           }
           // lib.mapAttrs' (pythonName: python: {
             name = "${pythonName}-overridden-transcript-timestamper";

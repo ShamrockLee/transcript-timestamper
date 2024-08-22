@@ -5,8 +5,7 @@ on:
     branches: [main]
 
 jobs:
-
-  nix-flake-check:
+  push-ruff-pinned:
     strategy:
       fail-fast: false
       matrix:
@@ -16,8 +15,36 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/install-nix
         with:
-          save-gha-cache: true
-      - name: Add the relevant ruff build to the GitHub Actions Cache.
-        run: nix develop -c echo infra development environment success
+          push-to-cachix: true
+          paths-to-push: result
+          # This is the repository secret, set by @ShamrockLee
+          cachix-auth-token: ${{secrets.CACHIX_AUTH_TOKEN_RW}}
+      - run: nix build .#ruff_d2n
+
+  nix-flake-check:
+    if: ${{ always() }}
+    needs: push-ruff-pinned
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-nix
       - name: Test the Nix flake
         run: nix flake check --keep-going
+
+  test-nix-infra-env:
+    if: ${{ always() }}
+    needs: push-ruff-pinned
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-nix
+      - name: Test the infra environment used by other GitHub workflows.
+        run: nix develop -c echo infra development environment success
