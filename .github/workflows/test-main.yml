@@ -15,7 +15,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/install-nix
-      - name: Test the infra environment used by other GitHub workflows.
-        run: nix develop -c echo infra development environment success
       - name: Test the Nix flake
         run: nix flake check --keep-going
+
+  test-nix-infra-env:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-nix
+      - name: Test the infra environment used by other GitHub workflows.
+        run: nix develop -c echo infra development environment success
