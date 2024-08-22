@@ -19,7 +19,7 @@ jobs:
           paths-to-push: result
           # This is the repository secret, set by @ShamrockLee
           cachix-auth-token: ${{secrets.CACHIX_AUTH_TOKEN_RW}}
-      - run: nix build .#ruff_d2n
+      - run: nix build --show-trace --print-out-paths --print-build-logs .#ruff_d2n
 
   nix-flake-check:
     if: ${{ always() }}
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/install-nix
       - name: Test the Nix flake
-        run: nix flake check --keep-going
+        run: nix flake check --keep-going --show-trace --print-build-logs
 
   test-nix-infra-env:
     if: ${{ always() }}

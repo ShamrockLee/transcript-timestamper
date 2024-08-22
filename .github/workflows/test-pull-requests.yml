@@ -20,7 +20,7 @@ jobs:
         # We check the full `nix flake check`
         # after the changes are merged into the main branch.
       - name: Check Nix Flake Evaluation
-        run: nix flake check --no-build --keep-going
+        run: nix flake check --no-build --keep-going --show-trace
 
   check-format:
     runs-on: [ubuntu-latest]
