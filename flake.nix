@@ -80,6 +80,14 @@
         devshells =
           {
             infra = {
+              env = [
+                {
+                  # pip defaults to timeout after 15 seconds.
+                  # Set to a longer period to download large packages smoothly.
+                  name = "POETRY_REQUESTS_TIMEOUT";
+                  value = 300;
+                }
+              ];
               packages = with self'.packages; [
                 act
                 alejandra

@@ -7,9 +7,10 @@
   pytestCheckHook,
   # Build inputs
   dragonmapper,
+  jellyfish,
   numpy,
   pandas,
-  whisper,
+  pypdf,
 }: let
   pyprojectTOMLAttrs = lib.importTOML ./pyproject.toml;
   # TODO(@ShamrockLee):
@@ -35,9 +36,10 @@ in
 
     dependencies = [
       dragonmapper
+      jellyfish
       numpy
       pandas
-      whisper
+      pypdf
     ];
 
     # There is currently no pytest tests.

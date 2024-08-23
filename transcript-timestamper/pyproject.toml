@@ -13,8 +13,12 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9" # For tensorflow and whisper 
+jellyfish = "^1.0.3"
 numpy = ">=1"
-whisper = "^1"
+OpenCC = "^1.1"
+pandarallel = "^v1.6.5"
+pandas = "^2"
+pypdf = "^4"
 
 
 [tool.poetry.group.dev.dependencies]
